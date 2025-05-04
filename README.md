@@ -1,10 +1,7 @@
 ## Uygulama Tanıtım Videosu
 
 <p align="center">
-  <video width="320" height="240" controls>
-    <source src="TanitimVideo.mp4" type="video/mp4">
-    Tarayıcınız video etiketini desteklemiyor.
-  </video>
+  <img src="AppDemo.gif" alt="Uygulama Demo" width="250" />
 </p>
 
 ## Ekran Görüntüleri
