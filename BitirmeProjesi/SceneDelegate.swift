@@ -11,12 +11,57 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        let tabBarController = UITabBarController()
+        
+        let urunlerVC = UrunListesiViewController(sadeceFavoriler: false)
+        let urunlerNav = UINavigationController(rootViewController: urunlerVC)
+        urunlerVC.title = "Ürünler"
+        urunlerNav.tabBarItem = UITabBarItem(
+            title: "Ürünler",
+            image: UIImage(systemName: "house"),
+            selectedImage: UIImage(systemName: "house.fill")
+        )
+        
+        let favorilerVC = UrunListesiViewController(sadeceFavoriler: true)
+        let favorilerNav = UINavigationController(rootViewController: favorilerVC)
+        favorilerVC.title = "Favorilerim"
+        favorilerNav.tabBarItem = UITabBarItem(
+            title: "Favorilerim",
+            image: UIImage(systemName: "heart"),
+            selectedImage: UIImage(systemName: "heart.fill")
+        )
+        
+        let sepetVC = SepetViewController()
+        let sepetNav = UINavigationController(rootViewController: sepetVC)
+        sepetVC.title = "Sepetim"
+        sepetNav.tabBarItem = UITabBarItem(
+            title: "Sepetim",
+            image: UIImage(systemName: "cart"),
+            selectedImage: UIImage(systemName: "cart.fill")
+        )
+        
+        tabBarController.viewControllers = [urunlerNav, favorilerNav, sepetNav]
+        
+        tabBarController.tabBar.tintColor = UIColor.systemBlue
+        tabBarController.tabBar.backgroundColor = UIColor.white
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.white
+            
+            tabBarController.tabBar.standardAppearance = appearance
+            tabBarController.tabBar.scrollEdgeAppearance = appearance
+        }
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
