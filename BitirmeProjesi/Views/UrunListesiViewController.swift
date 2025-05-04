@@ -9,7 +9,6 @@ import UIKit
 
 class UrunListesiViewController: UIViewController {
     
-    // MARK: - UI Bileşenleri
     private let searchController = UISearchController(searchResultsController: nil)
     
     private lazy var collectionView: UICollectionView = {
@@ -37,11 +36,9 @@ class UrunListesiViewController: UIViewController {
         return indicator
     }()
     
-    // MARK: - Properties
     private let viewModel: UrunListesiViewModels
     private let sadeceFavoriler: Bool
     
-    // MARK: - Init
     init(sadeceFavoriler: Bool = false) {
         self.sadeceFavoriler = sadeceFavoriler
         self.viewModel = UrunListesiViewModels(sadeceFavoriler: sadeceFavoriler)
@@ -69,7 +66,6 @@ class UrunListesiViewController: UIViewController {
         setupNavigationBar()
     }
     
-    // MARK: - UI Setup
     private func setupNavigationBar() {
         title = sadeceFavoriler ? "Favorilerim" : "Ürünler"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -112,7 +108,6 @@ class UrunListesiViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Ürün Ara"
         
-        // Arama çubuğu görünümünü özelleştir
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0)
         
@@ -126,7 +121,6 @@ class UrunListesiViewController: UIViewController {
                 self?.activityIndicator.stopAnimating()
                 self?.collectionView.reloadData()
                 
-                // Animasyonlu giriş efekti
                 self?.animateCollectionViewCells()
             }
         }
@@ -182,7 +176,6 @@ class UrunListesiViewController: UIViewController {
     private func hizliSepeteEkle(urun: Urun, adet: Int) {
         viewModel.sepeteEkle(urun: urun, adet: adet)
         
-        // Modern toast mesajı göster
         let toastContainer = UIView(frame: CGRect(x: view.frame.width/2 - 120, y: view.frame.height - 130, width: 240, height: 50))
         toastContainer.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         toastContainer.layer.cornerRadius = 25
@@ -216,7 +209,6 @@ class UrunListesiViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
 extension UrunListesiViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.urunSayisi
@@ -243,7 +235,6 @@ extension UrunListesiViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegate
 extension UrunListesiViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let urun = viewModel.urunGetir(index: indexPath.item)
@@ -251,21 +242,18 @@ extension UrunListesiViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        // İlk görünümdeki animasyon zaten yapıldığı için burada yapmıyoruz
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
 extension UrunListesiViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 16 * 2 + 16  // sol padding + sağ padding + hücreler arası boşluk
+        let padding: CGFloat = 16 * 2 + 16
         let availableWidth = collectionView.bounds.width - padding
         let cellWidth = availableWidth / 2
-        return CGSize(width: cellWidth, height: 220) // Sabit yükseklik veriyoruz
+        return CGSize(width: cellWidth, height: 220)
     }
 }
 
-// MARK: - UISearchResultsUpdating
 extension UrunListesiViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }

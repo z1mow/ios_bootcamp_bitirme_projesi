@@ -9,7 +9,6 @@ import UIKit
 
 class SepetOgesiHucresi: UITableViewCell {
     
-    // MARK: - UI Bileşenleri
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -84,10 +83,8 @@ class SepetOgesiHucresi: UITableViewCell {
         return button
     }()
     
-    // MARK: - Properties
     var silButtonHandler: (() -> Void)?
     
-    // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -135,13 +132,11 @@ class SepetOgesiHucresi: UITableViewCell {
         }
     }
     
-    // MARK: - UI Setup
     private func setupUI() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectionStyle = .none
         
-        // Add subviews
         contentView.addSubview(containerView)
         
         containerView.addSubview(urunImageView)
@@ -152,7 +147,6 @@ class SepetOgesiHucresi: UITableViewCell {
         adetContainer.addSubview(adetLabel)
         containerView.addSubview(silButton)
         
-        // Setup constraints
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -191,10 +185,8 @@ class SepetOgesiHucresi: UITableViewCell {
             silButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        // Add button action with animation
         silButton.addTarget(self, action: #selector(silButtonTapped), for: .touchUpInside)
         
-        // Add touch effects to delete button
         silButton.addTarget(self, action: #selector(buttonTouchDown), for: .touchDown)
         silButton.addTarget(self, action: #selector(buttonTouchUp), for: [.touchUpInside, .touchUpOutside, .touchCancel])
     }
@@ -211,7 +203,6 @@ class SepetOgesiHucresi: UITableViewCell {
         }
     }
     
-    // MARK: - Configuration
     func configure(with sepetOge: SepetOgesi) {
         urunAdiLabel.text = sepetOge.ad
         markaLabel.text = sepetOge.marka
@@ -243,9 +234,7 @@ class SepetOgesiHucresi: UITableViewCell {
         }.resume()
     }
     
-    // MARK: - Actions
     @objc private func silButtonTapped() {
-        // Silme butonu animasyonu
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
         

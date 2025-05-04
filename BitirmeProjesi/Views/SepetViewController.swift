@@ -9,7 +9,6 @@ import UIKit
 
 class SepetViewController: UIViewController {
     
-    // MARK: - UI Bileşenleri
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -27,12 +26,12 @@ class SepetViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.separatorStyle = .none // Ayırıcı çizgileri kaldır
-        tableView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1.0) // Hafif gri arka plan
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1.0)
         tableView.register(SepetOgesiHucresi.self, forCellReuseIdentifier: "SepetOgesiHucresi")
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.showsVerticalScrollIndicator = false // Scroll göstergesini gizle
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0) // İçerik kenar boşluğu ekle
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         tableView.layer.cornerRadius = 12 // Köşeleri yuvarla
         return tableView
     }()
@@ -44,8 +43,8 @@ class SepetViewController: UIViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: -4)
         view.layer.shadowOpacity = 0.15
         view.layer.shadowRadius = 12
-        view.layer.cornerRadius = 24 // Yukarıdaki köşeleri yuvarla
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner] // Sadece üst köşeleri yuvarla
+        view.layer.cornerRadius = 24
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         // Arka plana hafif bir gradiend ekle
         let gradientLayer = CAGradientLayer()
@@ -70,7 +69,6 @@ class SepetViewController: UIViewController {
         view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.98, alpha: 1.0)
         view.layer.cornerRadius = 16
         
-        // Görsel ilgiyi artırmak için hafif bir border ekle
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.95, alpha: 1.0).cgColor
         
@@ -135,7 +133,7 @@ class SepetViewController: UIViewController {
     private let toplamTutarDegerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        label.textColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0) // Mavi ton
+        label.textColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0)
         label.text = "₺0"
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -146,12 +144,11 @@ class SepetViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Siparişi Onayla", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0) // Mavi ton
+        button.backgroundColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         button.layer.masksToBounds = true
         
-        // Gradient arka planı oluştur
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor(red: 0.1, green: 0.5, blue: 1.0, alpha: 1.0).cgColor, 
@@ -211,11 +208,10 @@ class SepetViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Alışverişe Başla", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0) // Mavi ton
+        button.backgroundColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16
         
-        // Gradient arka planı oluştur
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor(red: 0.1, green: 0.5, blue: 1.0, alpha: 1.0).cgColor, 
@@ -241,10 +237,8 @@ class SepetViewController: UIViewController {
         return indicator
     }()
     
-    // MARK: - Properties
     private let viewModel = SepetViewModels()
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -262,7 +256,6 @@ class SepetViewController: UIViewController {
         contentSizeGuncelle()
     }
     
-    // MARK: - UI Setup
     private func setupNavigationBar() {
         title = "Sepetim"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -316,28 +309,23 @@ class SepetViewController: UIViewController {
         
         view.addSubview(activityIndicator)
         
-        // Setup constraints
         NSLayoutConstraint.activate([
-            // ScrollView
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: altPanel.topAnchor),
             
-            // ContentView
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            // Table View'in contentView içinde görünmesini sağla
             tableView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
-            // Alt panelin ekranın en altında sabit kalmasını sağla
             altPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             altPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             altPanel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -405,11 +393,9 @@ class SepetViewController: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
-        // Add button actions with animation
         siparisOnaylaButton.addTarget(self, action: #selector(siparisOnaylaButtonTapped), for: .touchUpInside)
         alisverisButton.addTarget(self, action: #selector(alisverisButtonTapped), for: .touchUpInside)
         
-        // Buton basma animasyonu ekle
         addButtonPressAnimation(to: siparisOnaylaButton)
         addButtonPressAnimation(to: alisverisButton)
     }
@@ -465,7 +451,6 @@ class SepetViewController: UIViewController {
         let genelToplam = toplamTutar + kargoUcreti
         toplamTutarDegerLabel.text = "₺\(genelToplam)"
         
-        // Animasyonlu guncelleme yap
         UIView.animate(withDuration: 0.3) {
             self.toplamTutarDegerLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         } completion: { _ in
@@ -491,9 +476,7 @@ class SepetViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    // MARK: - Actions
     @objc private func siparisOnaylaButtonTapped() {
-        // Sepet boşsa işlem yapma
         if viewModel.sepetOgeSayisi == 0 {
             let alert = UIAlertController(title: "Hata", message: "Sepetiniz boş", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Tamam", style: .default))
@@ -501,26 +484,23 @@ class SepetViewController: UIViewController {
             return
         }
         
-        // Sipariş onaylama işlemleri - modernize edilmiş başarı bildirimi
         let alert = UIAlertController(title: "Başarılı!", message: "Siparişiniz onaylandı", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Tamam", style: .default))
         present(alert, animated: true)
     }
     
     @objc private func alisverisButtonTapped() {
-        // Ürünler sayfasına geçiş animasyonlu
         UIView.animate(withDuration: 0.2, animations: {
             self.alisverisButton.alpha = 0.7
         }) { (_) in
             UIView.animate(withDuration: 0.2, animations: {
                 self.alisverisButton.alpha = 1.0
             })
-            self.tabBarController?.selectedIndex = 0 // İlk tab'a geç (Ürünler)
+            self.tabBarController?.selectedIndex = 0
         }
     }
 }
 
-// MARK: - UITableViewDataSource
 extension SepetViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.sepetOgeSayisi
@@ -535,7 +515,6 @@ extension SepetViewController: UITableViewDataSource {
         cell.configure(with: sepetOge)
         
         cell.silButtonHandler = { [weak self] in
-            // Silme işlemi animasyonlu
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform(translationX: tableView.bounds.width, y: 0)
                 cell.alpha = 0
@@ -548,14 +527,12 @@ extension SepetViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
 extension SepetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // Hücre animasyonu
         cell.alpha = 0
         cell.transform = CGAffineTransform(translationX: 0, y: 20)
         
@@ -565,26 +542,19 @@ extension SepetViewController: UITableViewDelegate {
         }, completion: nil)
     }
     
-    // TableView yüksekliğinin içeriğe göre ayarlanması için
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // TableView yüksekliğini içeriğe göre ayarla
         self.contentSizeGuncelle()
     }
 }
 
-// MARK: - Ek Fonksiyonlar
 extension SepetViewController {
-    // ContentView boyutunu tableView içeriğine göre ayarla
     private func contentSizeGuncelle() {
-        // TableView'ın içeriğine göre contentView'ın yüksekliğini ayarla
         if viewModel.sepetOgeSayisi > 0 {
-            let contentHeight = CGFloat(viewModel.sepetOgeSayisi) * 120 + 40 // 120: hücre yüksekliği, 40: ekstra boşluk
+            let contentHeight = CGFloat(viewModel.sepetOgeSayisi) * 120 + 40
             let minimumHeight = scrollView.frame.height
             
-            // ContentView'ın yüksekliğini ayarla (en az scrollView kadar yüksek olsun)
             let newHeight = max(contentHeight, minimumHeight)
             
-            // ContentView'ın yükseklik constraint'ini güncelle
             NSLayoutConstraint.activate([
                 contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: newHeight)
             ])

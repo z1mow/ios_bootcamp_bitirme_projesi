@@ -9,7 +9,6 @@ import UIKit
 
 class UrunDetayViewController: UIViewController {
 
-    // MARK: - UI Bileşenleri
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -196,7 +195,6 @@ class UrunDetayViewController: UIViewController {
         button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        // Buton için gölge ekle
         button.layer.shadowColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 0.3).cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowRadius = 10
@@ -205,12 +203,10 @@ class UrunDetayViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Properties
     private let urun: Urun
     private var viewModel: UrunDetayViewModels!
     private var isFavorite = false
     
-    // MARK: - Init
     init(urun: Urun) {
         self.urun = urun
         super.init(nibName: nil, bundle: nil)
@@ -221,7 +217,6 @@ class UrunDetayViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -230,14 +225,11 @@ class UrunDetayViewController: UIViewController {
         setupNavigationBar()
     }
     
-    // MARK: - UI Setup
     private func setupNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
         
-        // Back butonu için özel metin
         navigationController?.navigationBar.topItem?.backButtonTitle = "Ürünler"
         
-        // Appearance ayarla
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
@@ -250,7 +242,6 @@ class UrunDetayViewController: UIViewController {
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
-        // Back buton rengi
         navigationController?.navigationBar.tintColor = UIColor(red: 0.0, green: 0.4, blue: 0.9, alpha: 1.0)
     }
     
@@ -300,7 +291,6 @@ class UrunDetayViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            // Ürün resmi container
             urunImageContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             urunImageContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             urunImageContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -311,13 +301,11 @@ class UrunDetayViewController: UIViewController {
             urunImageView.trailingAnchor.constraint(equalTo: urunImageContainer.trailingAnchor, constant: -16),
             urunImageView.bottomAnchor.constraint(equalTo: urunImageContainer.bottomAnchor, constant: -16),
             
-            // Detay container
             detayContainer.topAnchor.constraint(equalTo: urunImageContainer.bottomAnchor, constant: 16),
             detayContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             detayContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             detayContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            // Ürün adı ve favori butonu
             urunAdiLabel.topAnchor.constraint(equalTo: detayContainer.topAnchor, constant: 24),
             urunAdiLabel.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             urunAdiLabel.trailingAnchor.constraint(equalTo: favorileButton.leadingAnchor, constant: -16),
@@ -327,25 +315,21 @@ class UrunDetayViewController: UIViewController {
             favorileButton.widthAnchor.constraint(equalToConstant: 50),
             favorileButton.heightAnchor.constraint(equalToConstant: 50),
             
-            // Marka bilgisi
             markaStack.topAnchor.constraint(equalTo: urunAdiLabel.bottomAnchor, constant: 16),
             markaStack.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             markaStack.trailingAnchor.constraint(lessThanOrEqualTo: detayContainer.trailingAnchor, constant: -24),
             
-            // Ayıraç çizgi
             ayiracCizgi.topAnchor.constraint(equalTo: markaStack.bottomAnchor, constant: 16),
             ayiracCizgi.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             ayiracCizgi.trailingAnchor.constraint(equalTo: detayContainer.trailingAnchor, constant: -24),
             ayiracCizgi.heightAnchor.constraint(equalToConstant: 1),
             
-            // Fiyat bölümü
             fiyatBaslikLabel.topAnchor.constraint(equalTo: ayiracCizgi.bottomAnchor, constant: 16),
             fiyatBaslikLabel.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             
             fiyatLabel.topAnchor.constraint(equalTo: fiyatBaslikLabel.bottomAnchor, constant: 8),
             fiyatLabel.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             
-            // Adet bölümü
             adetBaslikLabel.topAnchor.constraint(equalTo: fiyatLabel.bottomAnchor, constant: 16),
             adetBaslikLabel.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             
@@ -368,14 +352,12 @@ class UrunDetayViewController: UIViewController {
             adetArttirButton.widthAnchor.constraint(equalToConstant: 40),
             adetArttirButton.heightAnchor.constraint(equalToConstant: 40),
             
-            // Toplam bölümü
             toplamBaslikLabel.topAnchor.constraint(equalTo: adetKontrolContainer.bottomAnchor, constant: 24),
             toplamBaslikLabel.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             
             toplamFiyatLabel.centerYAnchor.constraint(equalTo: toplamBaslikLabel.centerYAnchor),
             toplamFiyatLabel.trailingAnchor.constraint(equalTo: detayContainer.trailingAnchor, constant: -24),
             
-            // Sepete Ekle Butonu
             sepeteEkleButton.topAnchor.constraint(equalTo: toplamBaslikLabel.bottomAnchor, constant: 24),
             sepeteEkleButton.leadingAnchor.constraint(equalTo: detayContainer.leadingAnchor, constant: 24),
             sepeteEkleButton.trailingAnchor.constraint(equalTo: detayContainer.trailingAnchor, constant: -24),
@@ -383,13 +365,11 @@ class UrunDetayViewController: UIViewController {
             sepeteEkleButton.bottomAnchor.constraint(equalTo: detayContainer.bottomAnchor, constant: -24)
         ])
         
-        // Button actions
         adetAzaltButton.addTarget(self, action: #selector(adetAzaltButtonTapped), for: .touchUpInside)
         adetArttirButton.addTarget(self, action: #selector(adetArttirButtonTapped), for: .touchUpInside)
         sepeteEkleButton.addTarget(self, action: #selector(sepeteEkleButtonTapped), for: .touchUpInside)
         favorileButton.addTarget(self, action: #selector(favorileButtonTapped), for: .touchUpInside)
         
-        // Button press animations
         addButtonPressAnimation(to: adetAzaltButton)
         addButtonPressAnimation(to: adetArttirButton)
         addButtonPressAnimation(to: sepeteEkleButton)
@@ -441,10 +421,8 @@ class UrunDetayViewController: UIViewController {
         markaLabel.text = urun.marka
         fiyatLabel.text = "₺\(urun.fiyat)"
         
-        // Favoriler kontrolü
         favorileButton.isSelected = urun.favori ?? false
         
-        // Toplam tutarı güncelle
         toplamFiyatGuncelle()
         
         if let url = URL(string: "http://kasimadalan.pe.hu/urunler/resimler/\(urun.resim)") {
@@ -477,11 +455,9 @@ class UrunDetayViewController: UIViewController {
         }.resume()
     }
     
-    // MARK: - Actions
     @objc private func adetAzaltButtonTapped() {
         viewModel.adetAzalt()
         
-        // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
     }
@@ -489,19 +465,12 @@ class UrunDetayViewController: UIViewController {
     @objc private func adetArttirButtonTapped() {
         viewModel.adetArttir()
         
-        // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
     }
     
     @objc private func favorileButtonTapped() {
         favorileButton.isSelected.toggle()
-        
-        // Ürünü favorilere ekle/çıkar işlemini yapar
-        // Not: Aşağıdaki kod ViewModel üzerinden favori ekleme/çıkarma işlemini yapmalı
-        // Bu örnek amaçlı eklenmiştir, gerçek implementasyonda ViewModel kullanılmalıdır
-        
-        // Animasyon ve haptic feedback
         UIView.animate(withDuration: 0.1, animations: {
             self.favorileButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }) { _ in
@@ -517,7 +486,6 @@ class UrunDetayViewController: UIViewController {
     @objc private func sepeteEkleButtonTapped() {
         viewModel.sepeteEkle()
         
-        // Haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
     }
@@ -529,7 +497,6 @@ class UrunDetayViewController: UIViewController {
     }
     
     private func basariMesajiGoster(_ mesaj: String) {
-        // Modernize edilmiş başarı mesajı
         let alert = UIAlertController(title: "✓ Başarılı", message: mesaj, preferredStyle: .alert)
         alert.view.tintColor = UIColor(red: 0.0, green: 0.6, blue: 0.3, alpha: 1.0)
         alert.addAction(UIAlertAction(title: "Tamam", style: .default) { [weak self] _ in

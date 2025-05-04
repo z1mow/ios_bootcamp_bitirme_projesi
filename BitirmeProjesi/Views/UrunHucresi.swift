@@ -9,7 +9,6 @@ import UIKit
 
 class UrunHucresi: UICollectionViewCell {
     
-    // MARK: - UI Bileşenleri
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -82,11 +81,9 @@ class UrunHucresi: UICollectionViewCell {
         return button
     }()
     
-    // MARK: - Properties
     var sepeteEkleButtonHandler: (() -> Void)?
     var favorileButtonHandler: (() -> Void)?
     
-    // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -108,17 +105,13 @@ class UrunHucresi: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        // Gradient arka plan ekle - bunu burada yapmalıyız çünkü frame değişebilir
         addGradientIfNeeded()
     }
     
-    // MARK: - UI Setup
     private func setupUI() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
-        // Add subviews
         contentView.addSubview(containerView)
         
         containerView.addSubview(urunImageView)
@@ -128,7 +121,6 @@ class UrunHucresi: UICollectionViewCell {
         containerView.addSubview(favorileButton)
         containerView.addSubview(sepeteEkleButton)
         
-        // Setup constraints
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
@@ -162,11 +154,9 @@ class UrunHucresi: UICollectionViewCell {
             sepeteEkleButton.heightAnchor.constraint(equalToConstant: 36),
         ])
         
-        // Add button actions with animations
         favorileButton.addTarget(self, action: #selector(favorileButtonTapped), for: .touchUpInside)
         sepeteEkleButton.addTarget(self, action: #selector(sepeteEkleButtonTapped), for: .touchUpInside)
         
-        // Add button press animations
         addButtonPressAnimation(to: favorileButton)
         addButtonPressAnimation(to: sepeteEkleButton)
     }
@@ -189,7 +179,6 @@ class UrunHucresi: UICollectionViewCell {
     }
     
     private func addGradientIfNeeded() {
-        // Layer TAG'i kontrol et - eğer zaten gradient varsa tekrar oluşturma
         if let layers = containerView.layer.sublayers, layers.contains(where: { $0.name == "gradientBackground" }) {
             return
         }
@@ -209,13 +198,11 @@ class UrunHucresi: UICollectionViewCell {
         containerView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    // MARK: - Configuration
     func configure(with urun: Urun) {
         urunAdiLabel.text = urun.ad
         markaLabel.text = urun.marka
         fiyatLabel.text = "₺\(urun.fiyat)"
         
-        // Favori durumunu güncelle
         favorileButton.isSelected = urun.favori ?? false
         
         if let url = URL(string: "http://kasimadalan.pe.hu/urunler/resimler/\(urun.resim)") {
@@ -243,12 +230,9 @@ class UrunHucresi: UICollectionViewCell {
         }.resume()
     }
     
-    // MARK: - Actions
     @objc private func favorileButtonTapped() {
-        // Favori durumunu değiştirmeden önce tıklama animasyonu
         favorileButton.isSelected.toggle()
         
-        // Daha yumuşak bir animasyon
         UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             self.favorileButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }) { _ in
@@ -257,7 +241,6 @@ class UrunHucresi: UICollectionViewCell {
             }
         }
         
-        // Haptik geri bildirim ekle
         let impactFeedback = UIImpactFeedbackGenerator(style: .light)
         impactFeedback.impactOccurred()
         
@@ -265,7 +248,6 @@ class UrunHucresi: UICollectionViewCell {
     }
     
     @objc private func sepeteEkleButtonTapped() {
-        // Sepete ekle buton efekti
         UIView.animate(withDuration: 0.1, animations: {
             self.sepeteEkleButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }) { _ in
@@ -274,7 +256,6 @@ class UrunHucresi: UICollectionViewCell {
             }
         }
         
-        // Haptik geri bildirim ekle
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
         impactFeedback.impactOccurred()
         
