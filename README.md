@@ -1,8 +1,7 @@
 ## Uygulama Tanıtım Videosu
 
-<p align="center">
-  <img src="AppDemo.gif" alt="Uygulama Demo" width="250" />
-</p>
+[![Uygulama Tanıtım Videosu](https://img.youtube.com/vi/Ag1d9T23U_4/0.jpg)](https://youtu.be/Ag1d9T23U_4?si=dEoE9EYMloTovsq6)
+
 
 ## Ekran Görüntüleri
 
